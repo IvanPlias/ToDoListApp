@@ -1,0 +1,147 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(#141e30, #243b55);
+}
+
+.flex-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-item {
+    background: rgb(13,22,30);
+    width: 750px;
+    height: 800px;
+    border-radius: 10px;
+    box-shadow: 0 25px 25px -10px rgba(0,0,0,.6);
+}
+
+.flex-container .flex-item h1 {
+    text-align: center;
+    color: darkturquoise;
+}
+
+.flex-container .flex-item .enterTODO {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    align-items: flex-end;
+}
+
+    .flex-container .flex-item .enterTODO label {
+        color: white;
+    }
+
+        .flex-container .flex-item .enterTODO label input[type="text"] {
+            background: none;
+            border: none;
+            border-bottom: 2px solid black;
+            height: 50px;
+            color: white;
+            font-size: 24px;
+            width: 100%;
+        }
+
+            .flex-container .flex-item .enterTODO label input[type="text"]:focus {
+                outline: none;
+            }
+
+.flex-container .flex-item .todos {
+    height: 620px;
+    width: 750px;
+    overflow: auto;
+}
+
+    .flex-container .flex-item .todos ul {
+        color: white;
+        list-style-type: none;
+        font-size: 20px;
+        padding-inline-start: 0;
+    }
+
+        .flex-container .flex-item .todos ul li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px;
+        }
+
+            .flex-container .flex-item .todos ul li .categories {
+                color: darkturquoise;
+            }
+
+            .flex-container .flex-item .todos ul li button {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                border: none;
+            }
+
+            .flex-container .flex-item .todos ul li .UnComplete {
+                background: url("../Images/UnComplete.jpg") no-repeat;
+                background-size: cover;
+            }
+            .flex-container .flex-item .todos ul li .Complete {
+                background: url("../Images/Complete.jpg") no-repeat;
+                background-size: cover;
+            }
+                .flex-container .flex-item .todos ul li .UnComplete:hover, .flex-container .flex-item .todos ul li .Complete:hover {
+                    transform: scale(150%)
+                }
+
+                .flex-container .flex-item .todos ul li .delete {
+                    background: darkred;
+                    font-size: 15px;
+                    color: white;
+                }
+                .flex-container .flex-item .todos ul li .delete:hover {
+                    background: white;
+                    font-size: 24px;
+                    color: darkred;
+                }
+
+            .flex-container .flex-item .todos ul li .description {
+                width: 50%;
+                word-wrap: break-word;
+            }
+
+.flex-container .flex-item .enterTODO label:first-child {
+    width: 50%;
+}
+
+.flex-container .flex-item .enterTODO label input[type="date"] {
+    background: linear-gradient(#141e30, #243b55);
+    border: none;
+    height: 30px;
+    color: white;
+    font-size: 14px;
+}
+
+.flex-container .flex-item .enterTODO label button {
+    border: none;
+    width: 50px;
+    background: none;
+    color: darkturquoise;
+    font-size: 24px;
+}
+
+    .flex-container .flex-item .enterTODO label button:active, .flex-container .flex-item .enterTODO label button:hover {
+        color: blueviolet;
+    }
+
+.flex-container .flex-item .enterTODO label select {
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: darkturquoise;
+}
+
+    .flex-container .flex-item .enterTODO label select option {
+        background: rgb(13,22,30);
+    }
