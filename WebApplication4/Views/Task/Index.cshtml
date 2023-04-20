@@ -39,7 +39,7 @@
                                         ;
                                     }
                                 </p>
-                                <form asp-action="TaskCompleteDb" method="post">
+                                <form asp-action="TaskComplete" method="post">
                                     <input type="hidden" asp-for="IsCompleteTaskViewModel.Id" value="@item.Id" />
                                     <input type="hidden" asp-for="IsCompleteTaskViewModel.IsComplete" value="@item.IsComplete" />
                                     <input type="hidden" asp-for="Storage" value="@Model.Storage" />
@@ -53,7 +53,7 @@
                                     }
 
                                 </form>
-                                <form asp-action="DeleteTaskFromDb" method="post">
+                                <form asp-action="DeleteTaskFrom" method="post">
                                     <input type="hidden" asp-for="IdTaskViewModel.Id" value="@item.Id" />
                                     <input type="hidden" asp-for="Storage" value="@Model.Storage" />
                                     <button class="delete">&#10008;</button>
@@ -63,7 +63,7 @@
                 }
             </ul>
         </div>
-        <form asp-action="AddTaskToDb" method="post">
+        <form asp-action="AddTaskTo" method="post">
             <div class="enterTODO">
                 <input type="hidden" asp-for="Storage" value="@Model.Storage" />
                 <label>

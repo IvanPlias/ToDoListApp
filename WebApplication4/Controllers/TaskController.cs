@@ -22,7 +22,7 @@ namespace WebApplication4.Controllers
             return Task.FromResult<IActionResult>(View(indexViewModel));
         }
         [HttpPost]
-        public Task<IActionResult> DeleteTaskFromDb(IdTaskViewModel IdTaskViewModel, IndexViewModel indexViewModel)
+        public Task<IActionResult> DeleteTaskFrom(IdTaskViewModel IdTaskViewModel, IndexViewModel indexViewModel)
         {
             switch (indexViewModel.Storage)
             {
@@ -36,7 +36,7 @@ namespace WebApplication4.Controllers
             return Task.FromResult<IActionResult>(RedirectToAction("Index", new RouteValueDictionary(new { Controller = "Task", Action = "Index", storage = indexViewModel.Storage })));
         }
         [HttpPost]
-        public Task<IActionResult> TaskCompleteDb(IsCompleteTaskViewModel IsCompleteTaskViewModel, IndexViewModel indexViewModel)
+        public Task<IActionResult> TaskComplete(IsCompleteTaskViewModel IsCompleteTaskViewModel, IndexViewModel indexViewModel)
         {
             switch (indexViewModel.Storage)
             {
@@ -50,7 +50,7 @@ namespace WebApplication4.Controllers
             return Task.FromResult<IActionResult>(RedirectToAction("Index", new RouteValueDictionary(new { Controller = "Task", Action = "Index", storage = indexViewModel.Storage })));
         }
         [HttpPost]
-        public Task<IActionResult> AddTaskToDb(AddTaskViewModel AddTaskViewModel, IndexViewModel indexViewModel)
+        public Task<IActionResult> AddTaskTo(AddTaskViewModel AddTaskViewModel, IndexViewModel indexViewModel)
         {
             if (!ModelState.IsValid)
             {
