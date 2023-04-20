@@ -1,54 +1,72 @@
 ﻿@model WebApplication4.ViewModels.IndexViewModel
 @{
     var CategoryMap = new Dictionary<int, string>();
+    if (Model.Context.Categories!=null)
     foreach (var item in Model.Context.Categories)
     {
         CategoryMap.Add(item.Id, item.Name);
     }
 }
+<header>
+    <form method="post" asp-action="Index">
+        <label>
+            <p>Storage: </p>
+            <select asp-for="@Model.Storage">
+                <option value="MSSQL">MSSQL</option>
+                <option value="Xmlstorage">Xml storage</option>
+            </select>
+            <button type="submit">Change</button>
+        </label>
+    </form>
+</header>
 <div class="flex-container">
     <div class="flex-item">
         <h1>To Do List</h1>
         <div class="todos">
             <ul>
-                @foreach (var item in Model.Context.ToDoTasks)
-                {
+                @{
+                    if (Model.Context.ToDoTasks != null)
+                        foreach (var item in Model.Context.ToDoTasks)
+                        {
 
-                    <li>
-                        <p class="description">@item.Description</p>
-                        <p class="categories">@CategoryMap[item.CategoryId]</p>
-                        <p>
-                            @{
-                                if (item.Deadline != DateTime.MinValue)
-                                    @item.Deadline.ToShortDateString()
-                                ;
-                            }
-                        </p>
-                        <form asp-action="Complete" method="post">
-                            <input type="hidden" asp-for="IsCompleteTaskViewModel.Id" value="@item.Id" />
-                            <input type="hidden" asp-for="IsCompleteTaskViewModel.IsComplete" value="@item.IsComplete" />
-                            @if (item.IsComplete)
-                            {
-                                <button class="Complete"></button>
-                            }
-                            else
-                            {
-                                <button class="UnComplete"></button>
-                            }
-                            
-                        </form>
-                        <form asp-action="Delete" method="post">
-                            <input type="hidden" asp-for="IdTaskViewModel.Id" value="@item.Id" />
-                            <button class="delete">&#10008;</button>
-                        </form>
-                    </li>
+                            <li>
+                                <p class="description">@item.Description</p>
+                                <p class="categories">@CategoryMap[item.CategoryId]</p>
+                                <p>
+                                    @{
+                                        if (item.Deadline != DateTime.MinValue)
+                                            @item.Deadline.ToShortDateString()
+                                        ;
+                                    }
+                                </p>
+                                <form asp-action="TaskCompleteDb" method="post">
+                                    <input type="hidden" asp-for="IsCompleteTaskViewModel.Id" value="@item.Id" />
+                                    <input type="hidden" asp-for="IsCompleteTaskViewModel.IsComplete" value="@item.IsComplete" />
+                                    <input type="hidden" asp-for="Storage" value="@Model.Storage" />
+                                    @if (item.IsComplete)
+                                    {
+                                        <button class="Complete"></button>
+                                    }
+                                    else
+                                    {
+                                        <button class="UnComplete"></button>
+                                    }
+
+                                </form>
+                                <form asp-action="DeleteTaskFromDb" method="post">
+                                    <input type="hidden" asp-for="IdTaskViewModel.Id" value="@item.Id" />
+                                    <input type="hidden" asp-for="Storage" value="@Model.Storage" />
+                                    <button class="delete">&#10008;</button>
+                                </form>
+                            </li>
+                        }
                 }
             </ul>
         </div>
-        <form asp-action="Create" method="post">
+        <form asp-action="AddTaskToDb" method="post">
             <div class="enterTODO">
+                <input type="hidden" asp-for="Storage" value="@Model.Storage" />
                 <label>
-                    @*<input asp-for="AddTaskViewModel.Description" type="text" placeholder="Write new TODO" />*@
                     @Html.TextBoxFor(m=>m.AddTaskViewModel.Description,new{placeholder="Write new TODO"})
                 </label>
                 <label>

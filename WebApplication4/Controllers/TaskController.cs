@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using ToDoListApp.XmlStorage;
 using WebApplication4.Models;
 using WebApplication4.Repositories;
 using WebApplication4.ViewModels;
@@ -14,32 +16,55 @@ namespace WebApplication4.Controllers
         {
             _mapper = mapper;
         }
-        public Task<IActionResult> Index()
+        public Task<IActionResult> Index(string storage)
         {
-            return Task.FromResult<IActionResult>(View(new IndexViewModel()));
+            IndexViewModel indexViewModel = new(storage);
+            return Task.FromResult<IActionResult>(View(indexViewModel));
         }
         [HttpPost]
-        public Task<IActionResult> Delete(IdTaskViewModel IdTaskViewModel)
+        public Task<IActionResult> DeleteTaskFromDb(IdTaskViewModel IdTaskViewModel, IndexViewModel indexViewModel)
         {
-            TaskRepository.DeleteTaskAsync(IdTaskViewModel);
-            return Task.FromResult<IActionResult>(RedirectToAction("Index"));
+            switch (indexViewModel.Storage)
+            {
+                case "MSSQL":
+                    TaskRepository.DeleteTaskAsync(IdTaskViewModel);
+                    break;
+                case "Xmlstorage":
+                    XmlToDoListRepository.DeleteTask(IdTaskViewModel);
+                    break;
+            }
+            return Task.FromResult<IActionResult>(RedirectToAction("Index", new RouteValueDictionary(new { Controller = "Task", Action = "Index", storage = indexViewModel.Storage })));
         }
         [HttpPost]
-        public Task<IActionResult> Complete(IsCompleteTaskViewModel IsCompleteTaskViewModel)
+        public Task<IActionResult> TaskCompleteDb(IsCompleteTaskViewModel IsCompleteTaskViewModel, IndexViewModel indexViewModel)
         {
-            TaskRepository.CompleteTaskAsync(IsCompleteTaskViewModel);
-            return Task.FromResult<IActionResult>(RedirectToAction("Index"));
+            switch (indexViewModel.Storage)
+            {
+                case "MSSQL":
+                    TaskRepository.CompleteTaskAsync(IsCompleteTaskViewModel);
+                    break;
+                case "Xmlstorage":
+                    XmlToDoListRepository.CompleteTask(IsCompleteTaskViewModel);
+                    break;
+            }
+            return Task.FromResult<IActionResult>(RedirectToAction("Index", new RouteValueDictionary(new { Controller = "Task", Action = "Index", storage = indexViewModel.Storage })));
         }
         [HttpPost]
-        public Task<IActionResult> Create(AddTaskViewModel AddTaskViewModel)
+        public Task<IActionResult> AddTaskToDb(AddTaskViewModel AddTaskViewModel, IndexViewModel indexViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return Task.FromResult<IActionResult>(RedirectToAction("Index"));
+                return Task.FromResult<IActionResult>(RedirectToAction("Index", new RouteValueDictionary(new { Controller = "Task", Action = "Index", storage = indexViewModel.Storage })));
             }
             var task = _mapper.Map<ToDoTask>(AddTaskViewModel);
-            TaskRepository.AddTaskAsync(task);
-            return Task.FromResult<IActionResult>(RedirectToAction("Index"));
+            switch(indexViewModel.Storage)
+            {
+                case "MSSQL": TaskRepository.AddTaskAsync(task);
+                    break;
+                case "Xmlstorage":XmlToDoListRepository.AddTaskXml(task);
+                    break;
+            }          
+            return Task.FromResult<IActionResult>(RedirectToAction("Index", new RouteValueDictionary(new {Controller="Task", Action="Index", storage=indexViewModel.Storage})));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

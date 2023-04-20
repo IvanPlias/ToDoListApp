@@ -5,12 +5,12 @@ html, body {
 body {
     margin: 0;
     background: linear-gradient(#141e30, #243b55);
+    font-family:Arial,serif;
 }
 
 .flex-container {
     height: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
 }
 
@@ -123,7 +123,7 @@ body {
     font-size: 14px;
 }
 
-.flex-container .flex-item .enterTODO label button {
+.flex-container .flex-item .enterTODO label button, header form label button {
     border: none;
     width: 50px;
     background: none;
@@ -131,17 +131,29 @@ body {
     font-size: 24px;
 }
 
-    .flex-container .flex-item .enterTODO label button:active, .flex-container .flex-item .enterTODO label button:hover {
+    .flex-container .flex-item .enterTODO label button:active, .flex-container .flex-item .enterTODO label button:hover, header form label button:hover, header form label button:active {
         color: blueviolet;
     }
 
-.flex-container .flex-item .enterTODO label select {
+.flex-container .flex-item .enterTODO label select, header form select {
     font-size: 24px;
     background: none;
     border: none;
     color: darkturquoise;
 }
 
-    .flex-container .flex-item .enterTODO label select option {
+    .flex-container .flex-item .enterTODO label select option, header form select option {
         background: rgb(13,22,30);
     }
+header form label {
+    display: flex;
+}
+
+    header form label p {
+        font-size: 24px;
+        color: darkturquoise;
+        margin: 20px;
+    }
+header form label button{
+    margin:20px;
+}

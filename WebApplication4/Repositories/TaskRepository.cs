@@ -1,5 +1,6 @@
 ﻿using System.Data.SqlClient;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Dapper;
 using WebApplication4.Models;
 using WebApplication4.ViewModels;
@@ -15,7 +16,7 @@ namespace WebApplication4.Repositories
             string query = "select * from tasks";
             var Tasks = conn.Query<ToDoTask>(query);
             return Tasks.ToList();
-        }
+        }       
         public async static void AddTaskAsync(ToDoTask task)
         {
             string query;
@@ -35,10 +36,7 @@ namespace WebApplication4.Repositories
 
         public async static void CompleteTaskAsync(IsCompleteTaskViewModel task)
         {
-            if (task.IsComplete)
-                task.IsComplete = false;
-            else
-                task.IsComplete = true;
+            task.IsComplete = !task.IsComplete;
             string query = @"update Tasks set IsComplete=@IsComplete where Id=@Id";
             using SqlConnection conn = new(connStr);
             await conn.ExecuteAsync(query, task);

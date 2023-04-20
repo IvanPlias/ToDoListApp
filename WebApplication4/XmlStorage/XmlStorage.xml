@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ToDoList>
+  <Categories>
+    <Category Id="1">
+      <Name>Products</Name>
+    </Category>
+    <Category Id="2">
+      <Name>Job</Name>
+    </Category>
+    <Category Id="3">
+      <Name>Study</Name>
+    </Category>
+  </Categories>
+  <ToDoTasks>
+    <ToDoTask Id="245716912">
+      <Description>Learn about Xml</Description>
+      <Deadline>01.01.0001</Deadline>
+      <IsComplete>True</IsComplete>
+      <CategoryId>3</CategoryId>
+    </ToDoTask>
+    <ToDoTask Id="723094392">
+      <Description>Add Xml Storage to my ToDoListApp</Description>
+      <Deadline>24.04.2023</Deadline>
+      <IsComplete>True</IsComplete>
+      <CategoryId>2</CategoryId>
+    </ToDoTask>
+  </ToDoTasks>
+</ToDoList>
