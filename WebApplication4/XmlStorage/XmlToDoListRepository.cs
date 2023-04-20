@@ -1,13 +1,5 @@
-﻿using Dapper;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 using WebApplication4.Models;
 using WebApplication4.ViewModels;
 

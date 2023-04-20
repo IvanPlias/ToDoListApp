@@ -1,6 +1,4 @@
 ﻿using System.Data.SqlClient;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using Dapper;
 using WebApplication4.Models;
 using WebApplication4.ViewModels;
