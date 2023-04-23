@@ -1,4 +1,6 @@
 ﻿using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Dapper;
 using WebApplication4.Models;
 using WebApplication4.ViewModels;
@@ -12,9 +14,9 @@ namespace WebApplication4.Repositories
         {
             using SqlConnection conn = new(connStr);
             string query = "select * from tasks";
-            var Tasks = conn.Query<ToDoTask>(query);
-            return Tasks.ToList();
-        }       
+            var Tasks = conn.Query<ToDoTask>(query).OrderBy(x=>x.IsComplete).ThenByDescending(x=>x.Deadline).ToList();
+            return Tasks;
+        }
         public async static void AddTaskAsync(ToDoTask task)
         {
             string query;
