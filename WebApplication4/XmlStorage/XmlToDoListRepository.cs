@@ -64,7 +64,8 @@ namespace ToDoListApp.XmlStorage
                 Deadline = Convert.ToDateTime(x.Element("Deadline")?.Value),
                 IsComplete = Convert.ToBoolean(x.Element("IsComplete")?.Value),
                 CategoryId = Convert.ToInt32(x.Element("CategoryId")?.Value)
-            }).ToList();
+            }).OrderBy(x => x.IsComplete).ThenByDescending(x => x.Deadline).ToList();
+
             return tasks;
         }
         private static void CreateXML()
